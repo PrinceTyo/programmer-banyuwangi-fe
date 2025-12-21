@@ -1,7 +1,5 @@
+import EventSection from "./_components/sections/event-section";
+
 export default function Home() {
-  return (
-    <div>
-      <h1>Mahal</h1>
-    </div>
-  );
+  return <EventSection />;
 }
