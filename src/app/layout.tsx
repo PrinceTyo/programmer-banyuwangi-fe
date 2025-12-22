@@ -1,15 +1,52 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono,  } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--font-ibm-plex-mono",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const acuminPro = localFont({
+  src: [
+    {
+      path: "./../../public/fonts/Acumin-RPro.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./../../public/fonts/Acumin-BdPro.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-acumin-pro",
+  display: "swap",
+});
+
+const googleSansCode = localFont({
+  src: [
+    {
+      path: "./../../public/fonts/GoogleSansCode-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./../../public/fonts/GoogleSansCode-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./../../public/fonts/GoogleSansCode-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-google-sans-code",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,9 +60,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${ibmPlexMono.variable} ${acuminPro.variable} ${googleSansCode.variable} antialiased`}
       >
         {children}
       </body>
