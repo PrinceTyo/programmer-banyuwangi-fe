@@ -123,3 +123,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .text-outline-black {
+    -webkit-text-stroke: 1px black;
+  }
+}
