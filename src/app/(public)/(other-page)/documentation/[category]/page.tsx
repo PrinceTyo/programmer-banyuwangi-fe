@@ -10,7 +10,7 @@ export default async function DocumentationCategoryPage({
   const documents = getDocumentsByCategory(category);
 
   return (
-    <div className="pt-28 mx-6 md:mx-10 lg:mx-21">
+    <div className="pt-10 md:pt-28 mx-6 md:mx-10 lg:mx-21">
       <DocumentationSection documents={documents} currentCategory={category} />
     </div>
   );

@@ -60,14 +60,13 @@ export default function DocumentationSection({
             <IoIosArrowBack />
           </div>
 
-          <Link
-            href="/documentation"
-            className="flex items-center border border-[#BABABA] hover:bg-white hover:text-black transition-colors duration-300 py-1.5 px-3 rounded-xs cursor-pointer"
+          <div
+            className="flex items-center border border-[#BABABA] py-1.5 px-3 rounded-xs"
           >
             <span className="text-xs">
               {currentPage}
             </span>
-          </Link>
+          </div>
 
           <div
             onClick={() =>
