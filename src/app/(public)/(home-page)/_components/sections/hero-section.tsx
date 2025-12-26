@@ -1,14 +1,23 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
+
+import { Particles, initParticlesEngine } from "@tsparticles/react";
+import { loadAll } from "@tsparticles/all";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
   const sectionHeroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadAll(engine);
+    });
+  }, []);
 
   useGSAP(() => {
     gsap.set(sectionHeroRef.current, {
@@ -51,10 +60,11 @@ export default function HeroSection() {
     timeline.to(".subtitle-second", { opacity: 1, duration: 0.5 }, "<0.1");
     timeline.to(".paragraph-second", { opacity: 1, duration: 0.5 }, "<0.1");
   }, []);
+
   return (
     <div
       ref={sectionHeroRef}
-      className="min-h-screen flex items-center justify-center bg-[#dee8eb] overflow-x-hidden"
+      className="relative min-h-screen flex items-center justify-center bg-[#dee8eb] overflow-x-hidden"
       style={{
         backgroundImage: `
           url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M60 54L60 66M54 60L66 60' stroke='%236B7280' stroke-width='0.5' stroke-opacity='0.7'/%3E%3C/g%3E%3C/svg%3E"),
@@ -62,7 +72,54 @@ export default function HeroSection() {
         `,
       }}
     >
-      <div className="min-w-screen min-h-screen grid grid-cols-2 grid-rows-3 gap-4 p-30">
+      <Particles
+        id="mouse-follow-particles"
+        className="absolute inset-0 z-0 pointer-events-none"
+        options={{
+          fullScreen: false,
+          particles: {
+            number: { value: 0 },
+          },
+          interactivity: {
+            events: {
+              onHover: {
+                enable: true,
+                mode: "trail",
+              },
+            },
+            modes: {
+              trail: {
+                delay: 0.005,
+                quantity: 3,
+                pauseOnStop: true,
+                particles: {
+                  size: {
+                    value: 20,
+                  },
+                  color: {
+                    value: "#ffffff",
+                  },
+                  opacity: {
+                    value: 0.1,
+                  },
+                  life: {
+                    duration: {
+                      value: 1,
+                    },
+                    count: 1,
+                  },
+                  move: {
+                    enable: true,
+                    speed: 0.5,
+                  },
+                },
+              },
+            },
+          },
+        }}
+      />
+
+      <div className="relative min-w-screen min-h-screen grid grid-cols-2 grid-rows-3 gap-4 p-30">
         <div className="col-span-2 align-top">
           <h1 className="title text-8xl font-bold text-transparent text-outline-black">
             VISION
@@ -71,7 +128,7 @@ export default function HeroSection() {
         <div className="row-start-2 grid items-center text-start">
           <div>
             <h1 className="subtitle-first text-4xl font-semibold text-white bg-black inline-bg px-3 leading-14">
-              So for now, it's only me In engineering we trust
+              So for now, it's only me, and maybe that's all i need
             </h1>
           </div>
         </div>
