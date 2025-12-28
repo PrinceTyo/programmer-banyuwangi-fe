@@ -42,14 +42,14 @@ export default function CardDocumentation({ document }: CardDocumentationProps) 
       href={`/documentation/detail/${document.slug}`}
       className="flex flex-col gap-6 group"
     >
-      <div className="overflow-hidden">
+      <div className="card-image overflow-hidden">
         <img
           src={document.thumbnail}
           alt={document.title}
           className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
         />
       </div>
-      <div className="flex flex-col">
+      <div className="card-text flex flex-col">
         <div className="flex items-start justify-between gap-2">
           <time
             className="text-white text-sm font-medium whitespace-nowrap font-google"
