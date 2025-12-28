@@ -5,7 +5,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register GSAP plugins
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
@@ -68,13 +67,11 @@ export default function CardSlider() {
     },
   ];
 
-  // Fungsi untuk menghitung total scroll
   const calculateTotalScroll = useCallback(() => {
     if (!sliderRef.current) return 0;
     return sliderRef.current.scrollWidth - window.innerWidth;
   }, []);
 
-  // Handler untuk navigasi dots
   const handleDotClick = useCallback(
     (index: number) => {
       const progress = index / (cards.length - 1);
@@ -100,10 +97,8 @@ export default function CardSlider() {
 
       if (cardsElements.length === 0) return;
 
-      // Calculate and store total scroll
       totalScrollRef.current = slider.scrollWidth - window.innerWidth;
 
-      // Create the main horizontal scroll animation
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: slider,
@@ -124,13 +119,11 @@ export default function CardSlider() {
         },
       });
 
-      // Add animation to the timeline
       tl.to(cardsElements, {
         xPercent: -100 * (cards.length - 1),
         ease: "none",
       });
 
-      // Create individual card animations
       cardsElements.forEach((card, index) => {
         gsap.fromTo(
           card,
@@ -153,14 +146,12 @@ export default function CardSlider() {
         );
       });
 
-      // Update total scroll on resize
       const handleResize = () => {
         totalScrollRef.current = calculateTotalScroll();
       };
 
       window.addEventListener("resize", handleResize);
 
-      // Cleanup function
       return () => {
         window.removeEventListener("resize", handleResize);
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -173,23 +164,20 @@ export default function CardSlider() {
     }
   );
 
-  // Function to handle card refs
   const setCardRef = (el: HTMLDivElement | null, index: number) => {
     cardsRef.current[index] = el;
   };
 
   return (
     <div ref={containerRef} className="bg-black min-h-screen">
-      {/* Hero Section */}
       <div className="h-screen flex flex-col items-center justify-center">
         <h1 className="text-6xl font-bold text-white mb-8">Scroll Down</h1>
         <div className="text-white/60 text-lg animate-bounce">↓</div>
       </div>
 
-      {/* Slider Section */}
       <div
         ref={sliderRef}
-        className="h-screen overflow-hidden relative bg-gradient-to-b from-black via-gray-900 to-black"
+        className="h-screen overflow-hidden relative bg-linear-to-b from-black via-gray-900 to-black"
       >
         <div className="flex h-full">
           {cards.map((card, index) => (
@@ -198,15 +186,14 @@ export default function CardSlider() {
               ref={(el) => setCardRef(el, index)}
               className="min-w-full h-full flex items-center justify-center px-4 md:px-20"
             >
-              <div className="w-full max-w-4xl h-[500px] rounded-3xl shadow-2xl overflow-hidden relative">
+              <div className="w-full max-w-4xl h-125 rounded-3xl shadow-2xl overflow-hidden relative">
                 <img
                   src={card.image}
                   alt={card.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent"></div>
 
-                {/* Card Content Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-8">
                   <div className="flex justify-between items-end">
                     <div>
@@ -228,7 +215,6 @@ export default function CardSlider() {
           ))}
         </div>
 
-        {/* Active Card Info - Bottom Right */}
         <div className="absolute bottom-20 right-20 max-w-md">
           <div className="text-white/60 text-sm font-semibold mb-2">
             {String(activeIndex + 1).padStart(2, "0")} /{" "}
@@ -241,7 +227,6 @@ export default function CardSlider() {
             {cards[activeIndex].description}
           </p>
 
-          {/* Navigation Dots */}
           <div className="flex gap-2 mt-8">
             {cards.map((_, index) => (
               <button
@@ -259,7 +244,6 @@ export default function CardSlider() {
         </div>
       </div>
 
-      {/* Footer Section */}
       <div className="h-screen flex flex-col items-center justify-center">
         <h1 className="text-6xl font-bold text-white mb-8">
           End of Experience
