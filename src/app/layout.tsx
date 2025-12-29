@@ -1,15 +1,43 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono, Geologica } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/globals.css";
+import SmoothScrollWrapper from "@/components/wrappers/smooth-scroll-wrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const JetBrains = JetBrains_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const Geologicas = Geologica({
+  subsets: ["latin", "latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--font-geologica",
+  display: "swap",
+});
+
+const googleSansCode = localFont({
+  src: [
+    {
+      path: "./../../public/fonts/GoogleSansCode-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./../../public/fonts/GoogleSansCode-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./../../public/fonts/GoogleSansCode-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-google-sans-code",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +51,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased`}
       >
-        {children}
+        <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
     </html>
   );
