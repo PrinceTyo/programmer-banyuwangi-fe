@@ -123,3 +123,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .text-outline-black {
+    -webkit-text-stroke: 1px black;
+  }
+
+  .inline-bg {
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
