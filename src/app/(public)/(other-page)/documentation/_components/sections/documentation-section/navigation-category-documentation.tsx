@@ -16,7 +16,7 @@ export default function NavigationCategoryDocumentation({
     slug === DEFAULT_CATEGORY ? "/documentation" : `/documentation/${slug}`;
 
   const getLinkClass = (isActive: boolean) =>
-    `inline-flex items-center gap-2 font-acumin transition-colors ${
+    `inline-flex items-center gap-2 font-jetbrains transition-colors ${
       isActive ? "text-[#BABABA]" : "text-white hover:text-[#BABABA]"
     }`;
 

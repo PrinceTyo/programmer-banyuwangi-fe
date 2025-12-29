@@ -1,9 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -13,10 +11,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuMenu } from "react-icons/lu";
 import { useState, useEffect } from "react";
-import { navbarData } from "@/lib/data/navbar";
 import { isActivePath } from "@/lib/data/navbar";
+import { NavConfig } from "@/types/navbar";
 
-export function MobileNavbar() {
+interface NavbarProps {
+  navbarData: NavConfig;
+}
+
+export function MobileNavbar({ navbarData }: NavbarProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -31,7 +33,7 @@ export function MobileNavbar() {
     if (pathname === href) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
-      setOpen(false); 
+      setOpen(false);
     }
   };
 
@@ -51,7 +53,7 @@ export function MobileNavbar() {
         </SheetHeader>
         <div className="flex flex-1 items-center justify-start">
           <div className="flex flex-col gap-10">
-            {navbarData.mobileNav.map((item) => {
+            {navbarData.mainNav.map((item) => {
               const isActive = isActivePath(pathname, item.href);
 
               return (

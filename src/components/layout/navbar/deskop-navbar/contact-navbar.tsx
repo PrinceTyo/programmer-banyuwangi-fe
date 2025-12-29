@@ -1,6 +1,13 @@
+import { NavConfig } from "@/types/navbar";
 import Link from "next/link";
 
-export default function Contactlink({ navbarData, isDark, isHovered }: any) {
+interface ContactLinkProps {
+  navbarData: NavConfig;
+  isDark: boolean;
+  isHovered: boolean;
+}
+
+export default function Contactlink({ navbarData, isDark, isHovered }: ContactLinkProps) {
   const btnBorder = isDark ? "border-black" : "border-white";
   const btnHover = isDark
     ? "hover:bg-black hover:text-white"
@@ -8,15 +15,15 @@ export default function Contactlink({ navbarData, isDark, isHovered }: any) {
 
   return (
     <div
-      className={`border ${btnBorder} ${btnHover} transition-colors duration-300 px-4 py-2 rounded-full`}
+      className={`border ${btnBorder} ${btnHover} transition-colors duration-300 px-4 py-2 rounded-full cursor-pointer`}
     >
       <Link
         href={navbarData.ctaButton.href}
-        className="text-sm font-light font-ibm block"
+        className="text-sm font-normal font-jetbrains block"
       >
         <div className="relative h-5 overflow-hidden">
           <div
-            className={`transition-transform duration-500 ease-out ${
+            className={`transition-transform duration-300 ease-in-out ${
               isHovered ? "-translate-y-5" : "translate-y-0"
             }`}
           >

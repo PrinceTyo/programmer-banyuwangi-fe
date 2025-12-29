@@ -21,7 +21,7 @@ export default function Navbar() {
 
     for (const el of elements) {
       const box = el.getBoundingClientRect();
-      if (box.top <= 0 && box.bottom >= 100) {
+      if (box.top <= 50 && box.bottom >= 100) {
         found = el.getAttribute("id");
         break;
       }
@@ -62,7 +62,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${navStyle} transition-colors duration-300`}
     >
-      <div className="mx-auto py-6 px-6 md:px-12">
+      <div className="mx-auto py-6 px-6 md:px-20">
         <div className="flex justify-between items-center h-16">
           <div className="text-xl font-bold font-ibm">
             <Link href="/">CProgammer</Link>
@@ -71,7 +71,7 @@ export default function Navbar() {
           <DesktopNavbar navbarData={navbarData} isDark={isDark} />
 
           <div className="md:hidden cursor-pointer">
-            <MobileNavbar />
+            <MobileNavbar navbarData={navbarData} />
           </div>
         </div>
       </div>

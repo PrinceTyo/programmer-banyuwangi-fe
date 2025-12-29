@@ -1,65 +1,66 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import Contactlink from "./deskop-navbar/contact-navbar";
+import { NavConfig } from "@/types/navbar";
 
-interface DesktopNavbarProps {
-  navbarData: any;
+gsap.registerPlugin(ScrambleTextPlugin);
+
+interface NavbarProps {
+  navbarData: NavConfig;
   isDark: boolean;
 }
 
-export function DesktopNavbar({ navbarData, isDark }: DesktopNavbarProps) {
-  const CHARS =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-
+export function DesktopNavbar({ navbarData, isDark }: NavbarProps) {
+  const scrambleRef = useRef<HTMLDivElement>(null);
   const [isCTAHovered, setIsCTAHovered] = useState(false);
   const textColor = isDark ? "text-black" : "text-white";
 
-  useGSAP(() => {
-    const navLinks = gsap.utils.toArray(".nav-link") as HTMLAnchorElement[];
+  useGSAP(
+    () => {
+      const links = scrambleRef.current?.querySelectorAll("a[data-text]");
 
-    navLinks.forEach((link) => {
-      const originalText = link.textContent || "";
+      links?.forEach((link) => {
+        const handleMouseEnter = () => {
+          const originalText =
+            link.getAttribute("data-text") || link.textContent;
 
-      link.addEventListener("mouseenter", () => {
-        gsap.killTweensOf(link);
+          gsap.to(link, {
+            duration: 0.6,
+            scrambleText: {
+              text: originalText,
+              chars: "upperCase",
+              revealDelay: 0.3,
+            },
+            ease: "none",
+          });
+        };
 
-        const tl = gsap.timeline();
-
-        tl.to(link, {
-          duration: 0.8,
-          onUpdate: function () {
-            const progress = this.progress();
-            let result = "";
-            for (let i = 0; i < originalText.length; i++) {
-              if (Math.random() < progress) {
-                result += originalText[i];
-              } else {
-                result += CHARS[Math.floor(Math.random() * CHARS.length)];
-              }
-            }
-            link.textContent = result;
-          },
-          ease: "power3.out",
-          onComplete: () => {
-            link.textContent = originalText;
-          },
-        });
+        link.addEventListener("mouseenter", handleMouseEnter);
       });
-    });
-  }, []);
+
+      return () => {
+        links?.forEach((link) => {
+          link.removeEventListener("mouseenter", () => {});
+        });
+      };
+    },
+    { scope: scrambleRef }
+  );
 
   return (
-    <>
-      <div className="hidden md:flex space-x-8 items-center">
-        {navbarData.mainNav.map((item: any) => (
+    <div className="flex items-center gap-20">
+      <div ref={scrambleRef} className="hidden md:flex space-x-8 items-center">
+        {navbarData.mainNav.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className={`text-base font-ibm cursor-pointer min-w-15 text-center nav-link ${textColor}`}
+            data-text={item.label}
+            className={`text-base font-ibm cursor-pointer min-w-15 text-center ${textColor} transition-colors`}
           >
             {item.label}
           </Link>
@@ -77,6 +78,6 @@ export function DesktopNavbar({ navbarData, isDark }: DesktopNavbarProps) {
           isHovered={isCTAHovered}
         />
       </div>
-    </>
+    </div>
   );
 }

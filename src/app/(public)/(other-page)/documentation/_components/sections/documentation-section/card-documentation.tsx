@@ -5,7 +5,9 @@ interface CardDocumentationProps {
   document: Documentation;
 }
 
-export default function CardDocumentation({ document }: CardDocumentationProps) {
+export default function CardDocumentation({
+  document,
+}: CardDocumentationProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -16,22 +18,14 @@ export default function CardDocumentation({ document }: CardDocumentationProps) 
 
   const categoryLabels = document.categories.map((category) => {
     switch (category) {
-      case "figma":
-        return "Figma";
-      case "website":
-        return "Website";
-      case "desktop":
-        return "Desktop";
-      case "mobile":
-        return "Mobile";
-      case "unreal-engine":
-        return "Unreal Engine";
-      case "unity":
-        return "Unity";
-      case "branding":
-        return "Branding";
-      case "ui-ux":
-        return "UI/UX";
+      case "ui-web":
+        return "UI/Web";
+      case "learning":
+        return "Learning";
+      case "collaboration":
+        return "Collaboration";
+      case "community-project":
+        return "Community Project";
       default:
         return category;
     }
@@ -40,7 +34,7 @@ export default function CardDocumentation({ document }: CardDocumentationProps) 
   return (
     <Link
       href={`/documentation/detail/${document.slug}`}
-      className="flex flex-col gap-6 group"
+      className="flex flex-col gap-4 group"
     >
       <div className="card-image overflow-hidden">
         <img
@@ -50,20 +44,24 @@ export default function CardDocumentation({ document }: CardDocumentationProps) 
         />
       </div>
       <div className="card-text flex flex-col">
-        <div className="flex items-start justify-between gap-2">
-          <time
-            className="text-white text-sm font-medium whitespace-nowrap font-google"
-            dateTime={document.date}
-          >
-            {formatDate(document.date)}
-          </time>
-          <p className="text-[#BABABA] text-xs font-normal font-google text-right wrap-break-word">
-            [{categoryLabels.join(", ")}]
-          </p>
+        <div className="flex items-start justify-between">
+          <div className="">
+            <time
+              className="text-white text-md font-medium whitespace-nowrap font-jetbrains"
+              dateTime={document.date}
+            >
+              {formatDate(document.date)}
+            </time>
+          </div>
+          <div className="flex flex-col items-end gap-4">
+            <h6 className="text-white text-md font-jetbrains font-bold group-hover:text-[#BABABA] transition-colors">
+              {document.title}
+            </h6>
+            <p className="text-[#BABABA] text-xs font-normal font-jetbrains text-right wrap-break-word">
+              [{categoryLabels.join(", ")}]
+            </p>
+          </div>
         </div>
-        <h3 className="mt-4 text-white text-lg font-ibm font-bold group-hover:text-[#BABABA] transition-colors">
-          {document.title}
-        </h3>
       </div>
     </Link>
   );

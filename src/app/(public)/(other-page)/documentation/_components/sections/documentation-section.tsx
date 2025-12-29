@@ -35,7 +35,7 @@ export default function DocumentationSection({
   );
 
   const chars = useMemo(() => {
-    return "Documents"
+    return "Works"
       .split("")
       .map((char) => (char === " " ? "\u00A0" : char));
   }, []);
@@ -126,7 +126,7 @@ export default function DocumentationSection({
       <div className="md:mb-10 lg:mb-0">
         <h2
           ref={titleRef}
-          className="text-white font-acumin font-bold text-5xl lg:text-6xl"
+          className="text-white font-geologica font-bold text-5xl lg:text-7xl"
           style={{ perspective: "1000px" }}
         >
           {chars.map((char, index) => (
@@ -151,10 +151,10 @@ export default function DocumentationSection({
                     <Skeleton className="w-full h-62.5 bg-black/50 backdrop-blur-2xl" />
                     <div className="flex flex-col">
                       <div className="flex items-start justify-between gap-2">
-                        <time className="text-white text-sm font-medium whitespace-nowrap font-google opacity-0">
+                        <time className="text-white text-sm font-medium whitespace-nowrap font-jetbrains opacity-0">
                           0000 00.00
                         </time>
-                        <p className="text-[#BABABA] text-xs font-normal font-google text-right opacity-0">
+                        <p className="text-[#BABABA] text-xs font-normal font-jetbrains text-right opacity-0">
                           []
                         </p>
                       </div>

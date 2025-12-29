@@ -1,12 +1,8 @@
 export type DocumentationCategory =
-    | "figma"
-    | "website"
-    | "desktop"
-    | "mobile"
-    | "unreal-engine"
-    | "unity"
-    | "branding"
-    | "ui-ux";
+    | "ui-web"
+    | "learning"
+    | "collaboration"
+    | "community-project";
 
 export interface Documentation {
     id: string;

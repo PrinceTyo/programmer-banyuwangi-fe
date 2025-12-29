@@ -1,29 +1,20 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono,  } from "next/font/google";
+import { JetBrains_Mono, Geologica } from "next/font/google";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
+import SmoothScrollWrapper from "@/components/wrappers/smooth-scroll-wrapper";
 
-const ibmPlexMono = IBM_Plex_Mono({
+const JetBrains = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
-  variable: "--font-ibm-plex-mono",
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
-const acuminPro = localFont({
-  src: [
-    {
-      path: "./../../public/fonts/Acumin-RPro.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./../../public/fonts/Acumin-BdPro.otf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-acumin-pro",
+const Geologicas = Geologica({
+  subsets: ["latin", "latin-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--font-geologica",
   display: "swap",
 });
 
@@ -62,9 +53,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${ibmPlexMono.variable} ${acuminPro.variable} ${googleSansCode.variable} antialiased`}
+        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased`}
       >
-        {children}
+        <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
     </html>
   );

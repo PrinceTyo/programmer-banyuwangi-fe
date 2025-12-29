@@ -25,22 +25,14 @@ export default async function DocumentationDetailPage({
 
   const categoryLabels = project.categories.map((category) => {
     switch (category) {
-      case "figma":
-        return "Figma";
-      case "website":
-        return "Website";
-      case "desktop":
-        return "Desktop";
-      case "mobile":
-        return "Mobile";
-      case "unreal-engine":
-        return "Unreal Engine";
-      case "unity":
-        return "Unity";
-      case "branding":
-        return "Branding";
-      case "ui-ux":
-        return "UI/UX";
+      case "ui-web":
+        return "UI/Web";
+      case "learning":
+        return "Learning";
+      case "collaboration":
+        return "Collaboration";
+      case "community-project":
+        return "Community Project";
       default:
         return category;
     }
@@ -54,7 +46,7 @@ export default async function DocumentationDetailPage({
     <div className="pt-20 mx-auto max-w-6xl pb-28 px-12">
       <Link
         href="/documentation"
-        className="text-white hover:text-[#BABABA] transition-colors inline-flex items-center gap-2"
+        className="text-white font-jetbrains hover:text-[#BABABA] transition-colors inline-flex items-center gap-2"
       >
         <span>
           <FaLongArrowAltLeft />
@@ -64,22 +56,22 @@ export default async function DocumentationDetailPage({
       <div className="flex flex-col gap-10 pt-6">
         <div className="flex items-center justify-start gap-4">
           <time
-            className="text-white text-sm font-medium whitespace-nowrap font-google"
+            className="text-white text-sm font-medium whitespace-nowrap font-jetbrains"
             dateTime={project.date}
           >
             {formatDate(project.date)}
           </time>
-          <p className="text-[#BABABA] text-xs font-normal font-google text-right wrap-break-word">
+          <p className="text-[#BABABA] text-xs font-normal font-jetbrains text-right wrap-break-word">
             [{categoryLabels.join(", ")}]
           </p>
         </div>
-        <h3 className="text-white font-acumin font-bold text-3xl mb-12">
+        <h3 className="text-white font-jetbrains font-bold text-3xl mb-12">
           {project.title}
         </h3>
       </div>
 
       <div className="mb-6">
-        <p className="text-white text-base text-justify font-ibm leading-relaxed">
+        <p className="text-white text-base text-justify font-jetbrains leading-relaxed">
           {project.description}
         </p>
       </div>
@@ -94,7 +86,7 @@ export default async function DocumentationDetailPage({
 
       {project.images && project.images.length > 0 && (
         <div className="mb-16">
-          <h3 className="text-white font-bold text-xl mb-6 font-ibm">
+          <h3 className="text-white font-bold text-xl mb-6 font-jetbrains">
             Gallery
           </h3>
           <div className="grid grid-cols-2 gap-8">
@@ -120,7 +112,7 @@ export default async function DocumentationDetailPage({
             <div className="flex items-center justify-start gap-4 text-sm text-[#BABABA] mb-2">
               <FaLongArrowAltLeft /> <span>Previous</span>
             </div>
-            <span className="text-xs md:text-sm lg:text-lg font-medium md:font-bold font-ibm">
+            <span className="text-xs md:text-sm lg:text-lg font-medium md:font-bold font-jetbrains">
               {prevDocument.title}
             </span>
           </Link>
@@ -136,7 +128,7 @@ export default async function DocumentationDetailPage({
             <span className="flex items-center justify-end gap-4 text-sm text-[#BABABA] mb-2">
               <span>Next</span> <FaLongArrowAltRight />
             </span>
-            <span className="text-xs md:text-sm lg:text-lg font-medium md:font-bold font-ibm">
+            <span className="text-xs md:text-sm lg:text-lg font-medium md:font-bold font-jetbrains">
               {nextDocument.title}
             </span>
           </Link>
