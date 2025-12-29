@@ -1,4 +1,4 @@
-export const news = [
+export const blogs = [
   {
     id: 1,
     date: "2025 09.24",
