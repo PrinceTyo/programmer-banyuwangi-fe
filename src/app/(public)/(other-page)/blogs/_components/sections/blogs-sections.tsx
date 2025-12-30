@@ -17,14 +17,11 @@ export default function BlogsSection() {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(blogs.length / ITEMS_PER_PAGE);
 
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentBlogs = blogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
   return (
-    <div
-      className="relative min-h-screen bg-black overflow-x-hidden py-20 px-2 md:px-8 lg:px-14 overflow-y-hidden"
-      style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M60 54L60 66M54 60L66 60' stroke='%236B7280' stroke-width='0.5' stroke-opacity='0.7'/%3E%3C/g%3E%3C/svg%3E"), 
-        url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M15 15L15 0M15 15L30 15M15 15L15 30M15 15L0 15' stroke='%231F2937' stroke-width='0.5' stroke-opacity='0.6'/%3E%3C/g%3E%3C/svg%3E")`,
-      }}
-    >
+    <div className="relative min-h-screen overflow-x-hidden py-20 px-2 md:px-8 lg:px-14 overflow-y-hidden">
       <div className="absolute w-screen h-screen flex items-start justify-end">
         <div className="w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl"></div>
       </div>
@@ -32,17 +29,14 @@ export default function BlogsSection() {
 
       <Accordion type="single" collapsible className="w-full">
         <Separator />
-        {blogs.map((item) => (
+        {currentBlogs.map((item) => (
           <AccordionItem
             key={item.id}
             value={`items-${item.id}`}
             className="group text-white"
           >
             <AccordionTrigger className="relative px-2 overflow-hidden cursor-pointer transition-all duration-300">
-              <span
-                className="absolute inset-0 origin-bottom scale-y-0 transition-transform duration-300 ease-out
-                        pointer-events-none bg-white/30 group-hover:scale-y-110 group-data-[state=open]:scale-y-110"
-              />
+              <span className="absolute inset-0 origin-bottom scale-y-0 transition-transform duration-300 ease-out pointer-events-none bg-white/30 group-hover:scale-y-110 group-data-[state=open]:scale-y-110" />
               <div className="space-y-2">
                 <p>{item.date}</p>
                 <h2 className="text-2xl">{item.title}</h2>
@@ -71,7 +65,7 @@ export default function BlogsSection() {
           <div
             onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
             className={`flex items-center border border-[#BABABA] p-1.5 rounded-xs cursor-pointer transition-opacity ${
-              currentPage === 1 && "opacity-40 pointer-events-none"
+              currentPage === 1 ? "opacity-40 pointer-events-none" : ""
             }`}
           >
             <IoIosArrowBack />
@@ -86,7 +80,7 @@ export default function BlogsSection() {
               currentPage < totalPages && setCurrentPage(currentPage + 1)
             }
             className={`flex items-center border border-[#BABABA] p-1.5 rounded-xs cursor-pointer transition-opacity ${
-              currentPage === totalPages && "opacity-40 pointer-events-none"
+              currentPage === totalPages ? "opacity-40 pointer-events-none" : ""
             }`}
           >
             <IoIosArrowForward />

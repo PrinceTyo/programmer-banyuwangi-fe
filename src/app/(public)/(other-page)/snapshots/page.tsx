@@ -1,8 +1,6 @@
-import DocumentationSection from "./_components/sections/documentation-section";
-import { getDocumentsByCategory } from "@/lib/data/documentation";
+import SnapshotSection from "./_components/section/snapshot-section";
 
-export default function DocumentationPage() {
-  const documents = getDocumentsByCategory();
+export default function Snapshots() {
 
   return (
     <>
@@ -16,7 +14,7 @@ export default function DocumentationPage() {
       </div>
 
       <div className="relative z-10 pt-40 md:pt-60 mx-6 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14">
-        <DocumentationSection documents={documents} />
+        <SnapshotSection/>
       </div>
     </>
   );

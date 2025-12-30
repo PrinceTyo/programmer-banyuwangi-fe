@@ -3,6 +3,8 @@ import { JetBrains_Mono, Geologica } from "next/font/google";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
 import SmoothScrollWrapper from "@/components/wrappers/smooth-scroll-wrapper";
+import Navbar from "../components/layout/navbar/index";
+import Footer from "@/components/layout/footer";
 
 const JetBrains = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
@@ -53,9 +55,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased`}
+        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased bg-black`}
       >
+        <Navbar />
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
+        <Footer />
       </body>
     </html>
   );

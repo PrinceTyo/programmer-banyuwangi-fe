@@ -3,7 +3,7 @@ import { NavConfig } from "@/types/navbar";
 export const navbarData: NavConfig = {
     mainNav: [
         {
-            href: "/",
+            href: "/blogs",
             label: "Update",
         },
         {
@@ -15,7 +15,7 @@ export const navbarData: NavConfig = {
             label: "About",
         },
         {
-            href: "/Snapsots",
+            href: "/snapshots",
             label: "Snapsots",
         },
     ],

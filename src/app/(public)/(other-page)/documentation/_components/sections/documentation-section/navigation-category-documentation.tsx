@@ -32,7 +32,7 @@ export default function NavigationCategoryDocumentation({
               href={getHref(slug)}
               className={getLinkClass(isActive)}
             >
-              <span className="text-base tracking-wide uppercase">{label}</span>
+              <span className="text-sm lg:text-base tracking-wide uppercase">{label}</span>
               <span className=" text-[10px]">[{count}]</span>
             </Link>
           );

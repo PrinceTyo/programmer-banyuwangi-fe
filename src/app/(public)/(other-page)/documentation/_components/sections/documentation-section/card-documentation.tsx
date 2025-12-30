@@ -44,8 +44,8 @@ export default function CardDocumentation({
         />
       </div>
       <div className="card-text flex flex-col">
-        <div className="flex items-start justify-between">
-          <div className="">
+        <div className="hidden lg:flex items-start justify-between gap-6">
+          <div>
             <time
               className="text-white text-md font-medium whitespace-nowrap font-jetbrains"
               dateTime={document.date}
@@ -54,13 +54,28 @@ export default function CardDocumentation({
             </time>
           </div>
           <div className="flex flex-col items-end gap-4">
-            <h6 className="text-white text-md font-jetbrains font-bold group-hover:text-[#BABABA] transition-colors">
+            <h6 className="text-white text-right text-md font-jetbrains font-bold group-hover:text-[#BABABA] transition-colors">
               {document.title}
             </h6>
             <p className="text-[#BABABA] text-xs font-normal font-jetbrains text-right wrap-break-word">
               [{categoryLabels.join(", ")}]
             </p>
           </div>
+        </div>
+
+        <div className="flex lg:hidden flex-col gap-2">
+          <time
+            className="text-white text-sm md:text-md font-medium font-jetbrains"
+            dateTime={document.date}
+          >
+            {formatDate(document.date)}
+          </time>
+          <p className="text-[#BABABA] md:text-right text-xs font-normal font-jetbrains">
+            [{categoryLabels.join(", ")}]
+          </p>
+          <h6 className="text-white text-sm md:text-md font-jetbrains font-bold group-hover:text-[#BABABA] transition-colors">
+            {document.title}
+          </h6>
         </div>
       </div>
     </Link>

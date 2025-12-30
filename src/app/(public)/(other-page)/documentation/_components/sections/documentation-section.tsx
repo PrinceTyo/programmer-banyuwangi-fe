@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import CardDocumentation from "./documentation-section/card-documentation";
 import NavigationCategoryDocumentation from "./documentation-section/navigation-category-documentation";
+import SplitTextTitle from "@/components/split-text/split-text-title";
 import { Documentation } from "@/types/documentation";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,7 +24,6 @@ export default function DocumentationSection({
   const [isLoading, setIsLoading] = useState(true);
 
   const documentationRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
   const totalPages = Math.ceil(documents.length / ITEMS_PER_PAGE);
@@ -33,38 +33,6 @@ export default function DocumentationSection({
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
-
-  const chars = useMemo(() => {
-    return "Works"
-      .split("")
-      .map((char) => (char === " " ? "\u00A0" : char));
-  }, []);
-
-  useGSAP(() => {
-    if (titleRef.current) {
-      const charElements = titleRef.current.querySelectorAll(".char");
-
-      gsap.fromTo(
-        charElements,
-        {
-          opacity: 0,
-          y: 50,
-          rotateX: -90,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-          stagger: {
-            each: 0.05,
-            from: "start",
-          },
-        }
-      );
-    }
-  }, []); 
 
   useGSAP(() => {
     if (cardsRef.current && !isLoading) {
@@ -123,19 +91,11 @@ export default function DocumentationSection({
 
   return (
     <div ref={documentationRef}>
-      <div className="md:mb-10 lg:mb-0">
-        <h2
-          ref={titleRef}
-          className="text-white font-geologica font-bold text-5xl lg:text-7xl"
-          style={{ perspective: "1000px" }}
-        >
-          {chars.map((char, index) => (
-            <span key={index} className="char inline-block">
-              {char}
-            </span>
-          ))}
-        </h2>
-      </div>
+      <SplitTextTitle
+        text="Works"
+        className="text-white font-geologica font-bold text-5xl lg:text-7xl"
+      />
+
       <div className="flex flex-col md:flex-row gap-14 md:gap-24">
         <div className="md:flex-3 mt-10 md:mt-14 lg:mt-24">
           <NavigationCategoryDocumentation currentCategory={currentCategory} />
