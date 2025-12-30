@@ -34,12 +34,12 @@ export default function Cursor() {
 
   useGSAP(() => {
     gsap.set(cursorRef.current, {
-      xPercent: -50,
-      yPercent: -50,
+      xPercent: 100,
+      yPercent: 100,
     });
     gsap.set(followerRef.current, {
-      xPercent: -50,
-      yPercent: -50,
+      xPercent: -20,
+      yPercent: -20,
     });
     window.addEventListener("mousemove", moveCursor);
   }, []);
@@ -86,13 +86,10 @@ export default function Cursor() {
     <div className="pointer-events-none">
       <div
         ref={cursorRef}
-        className="w-2.5 h-2.5 rounded-full fixed bg-transparent z-99 border border-white"
+        className="w-2.5 h-2.5 rounded-full fixed bg-transparent z-99"
       ></div>
 
-      <div
-        ref={followerRef}
-        className="w-4 h-4 bg-white blur-lg rounded-full fixed z-99"
-      ></div>
+      <div ref={followerRef} className="w-4 h-4  fixed z-99"></div>
 
       {Array.from({ length: circleCount }).map((_, index) => (
         <div

@@ -6,6 +6,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <div className="h-[220vh]" />
       <EventSection />
       <CardSlider />
     </>

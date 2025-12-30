@@ -170,11 +170,6 @@ export default function CardSlider() {
 
   return (
     <div ref={containerRef} className="bg-black min-h-screen">
-      <div className="h-screen flex flex-col items-center justify-center">
-        <h1 className="text-6xl font-bold text-white mb-8">Scroll Down</h1>
-        <div className="text-white/60 text-lg animate-bounce">↓</div>
-      </div>
-
       <div
         ref={sliderRef}
         className="h-screen overflow-hidden relative bg-linear-to-b from-black via-gray-900 to-black"
@@ -242,15 +237,6 @@ export default function CardSlider() {
             ))}
           </div>
         </div>
-      </div>
-
-      <div className="h-screen flex flex-col items-center justify-center">
-        <h1 className="text-6xl font-bold text-white mb-8">
-          End of Experience
-        </h1>
-        <p className="text-white/60 text-lg max-w-md text-center">
-          Thanks for exploring our card slider. Hope you enjoyed the journey!
-        </p>
       </div>
     </div>
   );
