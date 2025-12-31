@@ -154,7 +154,7 @@ export default function HeroSection() {
         </div>
         <div className="text-start text-gray-500 relative">
           <p className="paragraph-first absolute lg:max-w-1/2 font-medium text-xs">
-            Bahwa aku pernah dicintai, Seada-adanya, Sekurang-kurangnya
+            Lorem ipsum sit solor amet dum region roms
           </p>
           <p className="paragraph-second absolute lg:max-w-1/2 font-medium text-xs">
             How can i move on, When i'm still love you?

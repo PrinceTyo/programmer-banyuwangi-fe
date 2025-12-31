@@ -12,8 +12,6 @@
     "@gsap/react": "^2.1.2",
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-accordion": "^1.2.12",
-    "@tsparticles/all": "^3.9.1",
-    "@tsparticles/react": "^3.0.0",
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@next/font": "^14.2.15",
     "@radix-ui/react-dialog": "^1.1.15",
