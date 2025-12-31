@@ -60,7 +60,7 @@ export default function Footer() {
 
       <div className="mx-4 mt-6 md:mt-10">
         <img
-          src="./assets/logo-footer.svg"
+          src="./assets/images/lgkpb.png"
           alt="Alche Logo"
           className="w-full"
         />
