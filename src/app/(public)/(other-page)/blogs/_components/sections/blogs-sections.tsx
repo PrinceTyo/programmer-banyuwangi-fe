@@ -11,6 +11,7 @@ import Link from "next/link";
 import { blogs } from "@/lib/data-dummy/blogs";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
+import SplitTextTitle from "@/components/split-text/split-text-title";
 
 export default function BlogsSection() {
   const ITEMS_PER_PAGE = 6;
@@ -25,7 +26,12 @@ export default function BlogsSection() {
       <div className="absolute w-screen h-screen flex items-start justify-end">
         <div className="w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl"></div>
       </div>
-      <h1 className="text-5xl md:text-7xl text-white font-bold mb-12">News</h1>
+      <div className="mb-20 md:mb-32">
+        <SplitTextTitle
+          text="News"
+          className="text-white font-geologica font-bold text-5xl lg:text-7xl leading-tight max-w-sm"
+        />
+      </div>
 
       <Accordion type="single" collapsible className="w-full">
         <Separator />
