@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MobileNavbar } from "./mobile-navbar";
 import { DesktopNavbar } from "./desktop-navbar";
-import { navbarData } from "@/lib/data/navbar";
+import { StrapiImage } from "@/components/global/strapi-image";
+import Link from "next/link";
 
-export default function Navbar() {
+import type { Navbar } from "@/types/strapi/single-type/navbar";
+
+export default function Navbar({ data }: Readonly<{ data: Navbar }>) {
   const pathname = usePathname();
   const [isDark, setIsDark] = useState(false);
   const rafId = useRef<number | null>(null);
@@ -62,17 +64,19 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${navStyle} transition-colors duration-300`}
     >
-      <div className="mx-auto py-6 px-6 md:px-20">
-        <div className="flex justify-between items-center h-16">
-          <div className="text-xl font-bold font-ibm">
-            <Link href="/">CProgammer</Link>
-          </div>
+      <div className="mx-auto py-6 px-6 md:px-20 flex justify-between items-center">
+        <Link href="/" className="h-16">
+          <StrapiImage
+            src={data.brandImage}
+            size="small"
+            className="w-full h-full object-contain"
+          />
+        </Link>
 
-          <DesktopNavbar navbarData={navbarData} isDark={isDark} />
+        <DesktopNavbar data={data} isDark={isDark} />
 
-          <div className="md:hidden cursor-pointer">
-            <MobileNavbar navbarData={navbarData} />
-          </div>
+        <div className="md:hidden cursor-pointer">
+          <MobileNavbar data={data} />
         </div>
       </div>
     </nav>

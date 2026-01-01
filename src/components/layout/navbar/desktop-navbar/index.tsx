@@ -1,23 +1,25 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import Contactlink from "./deskop-navbar/contact-navbar";
-import { NavConfig } from "@/types/navbar";
+import Link from "next/link";
+import gsap from "gsap";
+
+import Contactlink from "./contact-navbar";
+
+import type { Navbar } from "@/types/strapi/single-type/navbar";
 
 gsap.registerPlugin(ScrambleTextPlugin);
 
 interface NavbarProps {
-  navbarData: NavConfig;
+  data: Navbar;
   isDark: boolean;
 }
 
-export function DesktopNavbar({ navbarData, isDark }: NavbarProps) {
-  const scrambleRef = useRef<HTMLDivElement>(null);
+export function DesktopNavbar({ data, isDark }: Readonly<NavbarProps>) {
   const [isCTAHovered, setIsCTAHovered] = useState(false);
+  const scrambleRef = useRef<HTMLDivElement>(null);
   const textColor = isDark ? "text-black" : "text-white";
 
   useGSAP(
@@ -55,29 +57,30 @@ export function DesktopNavbar({ navbarData, isDark }: NavbarProps) {
   return (
     <div className="flex items-center gap-20">
       <div ref={scrambleRef} className="hidden md:flex space-x-8 items-center">
-        {navbarData.mainNav.map((item) => (
+        {data.navigations.map((item) => (
           <Link
-            key={item.href}
-            href={item.href}
-            data-text={item.label}
-            className={`text-base font-ibm cursor-pointer min-w-15 text-center ${textColor} transition-colors`}
+            key={item.url}
+            href={item.url}
+            className={`text-base font-jetbrains cursor-pointer min-w-15 text-center ${textColor} transition-colors`}
           >
-            {item.label}
+            {item.title}
           </Link>
         ))}
       </div>
 
-      <div
-        className="hidden md:flex items-center"
-        onMouseEnter={() => setIsCTAHovered(true)}
-        onMouseLeave={() => setIsCTAHovered(false)}
-      >
-        <Contactlink
-          navbarData={navbarData}
-          isDark={isDark}
-          isHovered={isCTAHovered}
-        />
-      </div>
+      {data.additionalNavigation ? (
+        <div
+          className="hidden md:flex items-center"
+          onMouseEnter={() => setIsCTAHovered(true)}
+          onMouseLeave={() => setIsCTAHovered(false)}
+        >
+          <Contactlink
+            data={data.additionalNavigation}
+            isDark={isDark}
+            isHovered={isCTAHovered}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

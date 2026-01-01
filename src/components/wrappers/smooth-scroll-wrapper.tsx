@@ -1,41 +1,50 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
-import Lenis from "lenis";
 import "lenis/dist/lenis.css";
+import { type ReactNode, useEffect, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { type LenisRef, ReactLenis } from "lenis/react";
+import gsap from "gsap";
 
 interface SmoothScrollWrapperProps {
   children: ReactNode;
 }
 
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export default function SmoothScrollWrapper({
   children,
-}: SmoothScrollWrapperProps) {
-  const lenisRef = useRef<Lenis | null>(null);
+}: Readonly<SmoothScrollWrapperProps>) {
+  const lenisRef = useRef<LenisRef | null>(null);
 
   useEffect(() => {
-    lenisRef.current = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    function raf(time: number) {
-      lenisRef.current?.raf(time);
-      requestAnimationFrame(raf);
+    function update(time: number) {
+      lenisRef.current?.lenis?.raf(time * 1000);
     }
 
-    requestAnimationFrame(raf);
+    gsap.ticker.add(update);
 
-    return () => {
-      lenisRef.current?.destroy();
-    };
+    return () => gsap.ticker.remove(update);
   }, []);
 
-  return <>{children}</>;
+  return (
+    <ReactLenis
+      root
+      options={{
+        autoRaf: false,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+        infinite: false,
+      }}
+      ref={lenisRef}
+    >
+      {children}
+    </ReactLenis>
+  );
 }

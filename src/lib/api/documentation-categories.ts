@@ -1,9 +1,10 @@
 import { extendedFetch } from "./base";
 
+import type { StrapiResponse } from "@/types/strapi/contract/response";
 import type { DocumentationCategory } from "@/types/strapi/models/documentation-category";
 
 export async function getDocumentationCategories(): Promise<
-  DocumentationCategory[]
+  StrapiResponse<DocumentationCategory[]>
 > {
   const response = await extendedFetch("/documentation-categories");
 
@@ -12,7 +13,7 @@ export async function getDocumentationCategories(): Promise<
 
 export async function getDocumentationCategory(
   slug: string
-): Promise<DocumentationCategory> {
+): Promise<StrapiResponse<DocumentationCategory>> {
   const response = await extendedFetch(`/documentation-categories/${slug}`);
 
   return await response.json();
