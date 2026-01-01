@@ -1,13 +1,18 @@
-import { NavConfig } from "@/types/navbar";
 import Link from "next/link";
 
+import type { Navbar } from "@/types/strapi/single-type/navbar";
+
 interface ContactLinkProps {
-  navbarData: NavConfig;
+  data: Navbar["additionalNavigation"];
   isDark: boolean;
   isHovered: boolean;
 }
 
-export default function Contactlink({ navbarData, isDark, isHovered }: ContactLinkProps) {
+export default function Contactlink({
+  data,
+  isDark,
+  isHovered,
+}: Readonly<ContactLinkProps>) {
   const btnBorder = isDark ? "border-black" : "border-white";
   const btnHover = isDark
     ? "hover:bg-black hover:text-white"
@@ -18,7 +23,7 @@ export default function Contactlink({ navbarData, isDark, isHovered }: ContactLi
       className={`border ${btnBorder} ${btnHover} transition-colors duration-300 px-4 py-2 rounded-full cursor-pointer`}
     >
       <Link
-        href={navbarData.ctaButton.href}
+        href={data.url}
         className="text-sm font-normal font-jetbrains block"
       >
         <div className="relative h-5 overflow-hidden">
@@ -28,10 +33,10 @@ export default function Contactlink({ navbarData, isDark, isHovered }: ContactLi
             }`}
           >
             <div className="h-5 flex items-center justify-center">
-              {navbarData.ctaButton.label}
+              {data.title}
             </div>
             <div className="h-5 flex items-center justify-center">
-              {navbarData.ctaButton.label}
+              {data.title}
             </div>
           </div>
         </div>

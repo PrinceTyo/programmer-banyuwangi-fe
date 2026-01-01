@@ -1,24 +1,22 @@
+"use client";
+
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuMenu } from "react-icons/lu";
 import { useState, useEffect } from "react";
 import { isActivePath } from "@/lib/data/navbar";
-import { NavConfig } from "@/types/navbar";
+import Link from "next/link";
 
-interface NavbarProps {
-  navbarData: NavConfig;
-}
+import type { Navbar } from "@/types/strapi/single-type/navbar";
 
-export function MobileNavbar({ navbarData }: NavbarProps) {
+export function MobileNavbar({ data }: Readonly<{ data: Navbar }>) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -53,22 +51,22 @@ export function MobileNavbar({ navbarData }: NavbarProps) {
         </SheetHeader>
         <div className="flex flex-1 items-center justify-start">
           <div className="flex flex-col gap-10">
-            {navbarData.mainNav.map((item) => {
-              const isActive = isActivePath(pathname, item.href);
+            {data.navigations.map((item) => {
+              const isActive = isActivePath(pathname, item.url);
 
               return (
-                <div key={item.href} className="flex items-center gap-4">
+                <div key={item.url} className="flex items-center gap-4">
                   <Separator
                     className={`bg-[#BABABA] h-0.5! opacity-70 ${
                       isActive ? "w-6!" : "w-3!"
                     }`}
                   />
                   <Link
-                    href={item.href}
-                    onClick={(e) => handleNavClick(item.href, e)}
+                    href={item.url}
+                    onClick={(e) => handleNavClick(item.url, e)}
                   >
-                    <span className="text-white hover:text-[#BABABA] text-2xl font-bold font-ibm tracking-wide">
-                      {item.label}
+                    <span className="text-white hover:text-[#BABABA] text-2xl font-bold tracking-wide">
+                      {item.title}
                     </span>
                   </Link>
                 </div>
@@ -76,21 +74,6 @@ export function MobileNavbar({ navbarData }: NavbarProps) {
             })}
           </div>
         </div>
-
-        <SheetFooter className="flex flex-row items-center justify-between mx-4 mb-6">
-          {navbarData.socialLinks.map((social) => (
-            <Link
-              key={social.name}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="text-[#BABABA] text-sm font-normal font-ibm">
-                {social.name}
-              </span>
-            </Link>
-          ))}
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

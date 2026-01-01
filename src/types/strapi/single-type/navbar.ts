@@ -4,5 +4,5 @@ import type { StrapiImage } from "@/types/strapi/media/image";
 export interface Navbar {
   brandImage: StrapiImage;
   navigations: Navigation[];
-  additionalNavigations: Navigation;
+  additionalNavigation: Navigation;
 }
