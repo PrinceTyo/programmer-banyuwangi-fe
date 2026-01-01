@@ -16,15 +16,43 @@ export default function Cursor() {
   const coords = useRef({ x: 0, y: 0 });
   const circleCount = 20;
 
+  const idleTimer = useRef<NodeJS.Timeout | null>(null);
+  const idleDelay = 300;
+
+  const hideCursor = () => {
+    gsap.to([cursorRef.current, followerRef.current, ...circlesRef.current], {
+      opacity: 0,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+  };
+
+  const showCursor = () => {
+    gsap.to([cursorRef.current, followerRef.current, ...circlesRef.current], {
+      opacity: 1,
+      duration: 0.25,
+      ease: "power2.out",
+    });
+  };
+
+  const resetIdleTimer = () => {
+    showCursor();
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    idleTimer.current = setTimeout(hideCursor, idleDelay);
+  };
+
   const moveCursor = (e: MouseEvent): void => {
     coords.current.x = e.clientX;
     coords.current.y = e.clientY;
+
+    resetIdleTimer();
 
     gsap.to(cursorRef.current, {
       x: e.clientX,
       y: e.clientY,
       duration: 0.2,
     });
+
     gsap.to(followerRef.current, {
       x: e.clientX,
       y: e.clientY,
@@ -33,15 +61,11 @@ export default function Cursor() {
   };
 
   useGSAP(() => {
-    gsap.set(cursorRef.current, {
-      xPercent: -50,
-      yPercent: -50,
-    });
-    gsap.set(followerRef.current, {
-      xPercent: -50,
-      yPercent: -50,
-    });
+    gsap.set(cursorRef.current, { xPercent: 100, yPercent: 100 });
+    gsap.set(followerRef.current, { xPercent: -20, yPercent: -20 });
+
     window.addEventListener("mousemove", moveCursor);
+    resetIdleTimer();
   }, []);
 
   useEffect(() => {
@@ -58,7 +82,7 @@ export default function Cursor() {
       let x = coords.current.x;
       let y = coords.current.y;
 
-      circles.forEach(function (circle, index) {
+      circles.forEach((circle, index) => {
         if (!circle) return;
 
         circle.style.left = x - 12 + "px";
@@ -71,9 +95,9 @@ export default function Cursor() {
         circle.x = x;
         circle.y = y;
 
-        const nextCircle = circles[index + 1] || circles[0];
-        x += (nextCircle.x - x) * 0.3;
-        y += (nextCircle.y - y) * 0.3;
+        const next = circles[index + 1] || circles[0];
+        x += (next.x - x) * 0.3;
+        y += (next.y - y) * 0.3;
       });
 
       requestAnimationFrame(animateCircles);
@@ -86,26 +110,21 @@ export default function Cursor() {
     <div className="pointer-events-none">
       <div
         ref={cursorRef}
-        className="w-2.5 h-2.5 rounded-full fixed bg-transparent z-99 border border-white"
-      ></div>
+        className="w-2.5 h-2.5 rounded-full fixed bg-transparent z-99"
+      />
 
-      <div
-        ref={followerRef}
-        className="w-4 h-4 bg-white blur-lg rounded-full fixed z-99"
-      ></div>
+      <div ref={followerRef} className="w-4 h-4 fixed z-98" />
 
       {Array.from({ length: circleCount }).map((_, index) => (
         <div
           key={index}
           ref={(el) => {
-            if (el) {
-              circlesRef.current[index] = el as CircleElement;
-            }
+            if (el) circlesRef.current[index] = el as CircleElement;
           }}
-          className="w-6 h-6 bg-white rounded-full fixed z-98"
+          className="w-6 h-6 bg-white/30 rounded-full fixed z-97"
           style={{
             opacity: 1 - index * 0.05,
-            filter: `blur(${index * 0.3}px)`,
+            filter: `blur(${index * 0.6}px)`,
           }}
         />
       ))}

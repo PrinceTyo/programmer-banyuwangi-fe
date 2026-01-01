@@ -169,7 +169,7 @@ export default function CardSlider() {
   };
 
   return (
-    <div ref={containerRef} className="bg-black min-h-screen"> 
+    <div ref={containerRef} className="bg-black min-h-screen">
       <div
         ref={sliderRef}
         className="h-screen relative overflow-hidden bg-linear-to-b from-black via-gray-900 to-black"
