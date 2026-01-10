@@ -1,6 +1,7 @@
 import type { Navigation } from "./navigation";
 
-export interface NavigationGroup {
-  title: string;
+export interface NavigationGrid {
+  id: number;
+  columnsCount: number;
   navigations: Navigation[];
 }

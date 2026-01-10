@@ -1,7 +1,7 @@
 import type { AdditionalNavigation } from "@/types/strapi/components/footer/additional-navigation";
-import type { NavigationGroup } from "@/types/strapi/components/shared/navigation-group";
+import type { NavigationGrid } from "@/types/strapi/components/shared/navigation-grid";
 
 export interface Footer {
-  navigationGroups: NavigationGroup[];
+  navigationGrid: NavigationGrid;
   additionalNavigation: AdditionalNavigation;
 }
