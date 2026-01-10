@@ -11,6 +11,24 @@ export async function getDocumentations(): Promise<
   return await response.json();
 }
 
+export async function getDocumentationsByCategory(
+  category: string
+): Promise<StrapiResponse<Documentation[]>> {
+  const response = await extendedFetch(
+    `/documentation-categories/${category}/items`
+  );
+
+  return await response.json();
+}
+
+export async function getDocumentationsCount(): Promise<
+  StrapiResponse<{ count: number }>
+> {
+  const response = await extendedFetch("/documentations/count");
+
+  return await response.json();
+}
+
 export async function getDocumentation(
   slug: string
 ): Promise<StrapiResponse<Documentation>> {
