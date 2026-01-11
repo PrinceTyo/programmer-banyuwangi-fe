@@ -8,13 +8,19 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { usePathname } from "next/navigation";
 import { LuMenu } from "react-icons/lu";
 import { useState, useEffect } from "react";
-import { isActivePath } from "@/lib/data/navbar";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import type { Navbar } from "@/types/strapi/single-type/navbar";
+
+export const isActivePath = (pathname: string, href: string): boolean => {
+  if (href === "/") {
+    return pathname === "/";
+  }
+  return pathname.startsWith(href);
+};
 
 export function MobileNavbar({ data }: Readonly<{ data: Navbar }>) {
   const pathname = usePathname();

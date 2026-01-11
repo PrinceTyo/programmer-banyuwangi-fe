@@ -1,7 +1,9 @@
-import Cursor from "@/components/effects/cursor";
-import BlogsSection from "./_components/sections/blogs-sections";
+import { getBlogs } from "@/lib/api/blogs";
+import BlogsSection from "./_components/blogs-sections";
 
-export default function BlogsPage() {
+export default async function BlogsPage() {
+  const { data: blogs } = await getBlogs();
+
   return (
     <>
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-1">
@@ -14,8 +16,7 @@ export default function BlogsPage() {
       </div>
 
       <div className="relative z-10 pt-20 md:pt-40 ">
-        <Cursor/>
-        <BlogsSection />
+        <BlogsSection blogs={blogs} />
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import { paginationParamsCache } from "@/config/pagination";
 import DocumentationSection from "../_components/sections/documentation-section";
 
 import type { SearchParams } from "nuqs/server";
+import { notFound } from "next/navigation";
 
 export default async function DocumentationCategoryPage({
   params,
@@ -28,6 +29,8 @@ export default async function DocumentationCategoryPage({
   );
   const { data: documentationsCount } = await getDocumentationsCount();
   const { data: documentationCategories } = await getDocumentationCategories();
+
+  if (!documentations) return notFound();
 
   return (
     <>

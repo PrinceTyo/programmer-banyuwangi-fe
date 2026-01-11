@@ -1,28 +1,30 @@
-import { extendedFetch } from "./base";
+import { extendedFetch, type ExtendedParams } from "./base";
 
 import type { StrapiResponse } from "@/types/strapi/contract/response";
 import type { Documentation } from "@/types/strapi/models/documentation";
 
-export async function getDocumentations(): Promise<
-  StrapiResponse<Documentation[]>
-> {
-  const response = await extendedFetch("/documentations");
+export async function getDocumentations<T>(
+  params?: ExtendedParams<T>
+): Promise<StrapiResponse<Documentation[]>> {
+  const response = await extendedFetch("/documentations", params);
 
   return await response.json();
 }
 
-export async function getDocumentationsByCategory(
-  category: string
+export async function getDocumentationsByCategory<T>(
+  category: string,
+  params?: ExtendedParams<T>
 ): Promise<StrapiResponse<Documentation[]>> {
   const response = await extendedFetch(
-    `/documentation-categories/${category}/items`
+    `/documentation-categories/${category}/documentations`,
+    params
   );
 
   return await response.json();
 }
 
 export async function getDocumentationsCount(): Promise<
-  StrapiResponse<{ count: number }>
+  StrapiResponse<{ total: number }>
 > {
   const response = await extendedFetch("/documentations/count");
 

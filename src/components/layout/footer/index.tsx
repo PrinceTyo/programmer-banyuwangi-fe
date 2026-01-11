@@ -1,7 +1,10 @@
+import { StrapiImage } from "@/components/global/strapi-image";
 import { GoArrowUpRight } from "react-icons/go";
 import FooterLinks from "./footer-link";
 
-export default function Footer() {
+import type { Footer } from "@/types/strapi/single-type/footer";
+
+export default function Footer({ data }: { data: Footer }) {
   return (
     <div
       className="relative z-10 bg-transparent pt-40"
@@ -53,16 +56,17 @@ export default function Footer() {
 
         <div className="flex justify-end">
           <h1 className="text-white font-jetbrains font-medium text-sm md:text-lg text-right">
-            ©2025 Alche, Inc.
+            ©{new Date().getFullYear()} {data.copyrightText}
           </h1>
         </div>
       </div>
 
       <div className="mx-4 mt-6 md:mt-10">
-        <img
-          src="./assets/images/lgkpb.png"
-          alt="Alche Logo"
+        <StrapiImage
+          src={data.logo}
+          alt="Footer Logo"
           className="w-full"
+          size="thumbnail"
         />
       </div>
     </div>

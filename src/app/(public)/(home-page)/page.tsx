@@ -9,7 +9,7 @@ export default async function Home() {
     <>
       <HeroSection heroData={homePageData.heroSection} />
       <div className="h-[220vh]" />
-      {homePageData.eventSection && <EventSection />}
+      <EventSection events={homePageData.eventSection} />
     </>
   );
 }

@@ -1,6 +1,8 @@
-import SnapshotSection from "./_components/section/snapshot-section";
+import { getSnapshots } from "@/lib/api/snapshots";
+import SnapshotSection from "./_components/snapshot-section";
 
-export default function Snapshots() {
+export default async function Snapshots() {
+  const { data: snapshots } = await getSnapshots();
 
   return (
     <>
@@ -14,7 +16,7 @@ export default function Snapshots() {
       </div>
 
       <div className="relative z-10 pt-40 md:pt-60 mx-6 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14">
-        <SnapshotSection/>
+        <SnapshotSection snapshots={snapshots} />
       </div>
     </>
   );

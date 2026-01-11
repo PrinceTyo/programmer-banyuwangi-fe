@@ -2,11 +2,13 @@
 
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
-import { events } from "@/lib/data-dummy/events";
+import { StrapiImage } from "@/components/global/strapi-image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import gsap from "gsap";
 
-export default function EventSection() {
+import type { Event as EventModel } from "@/types/strapi/models/event";
+
+export default function EventSection({ events }: { events: EventModel[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const imagesWrapperRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
@@ -230,12 +232,13 @@ export default function EventSection() {
               key={index}
               className="w-screen md:w-[60vw] h-auto md:h-96 shrink-0"
             >
-              <img
+              <StrapiImage
                 ref={(el) => {
                   imageRefs.current[index] = el;
                 }}
-                src={event.image}
+                src={event.photo}
                 alt={event.title}
+                size="large"
                 className="min-w-[105%] md:min-w-[110%] h-60 md:h-full object-cover rounded-lg shadow-2xl"
               />
             </div>

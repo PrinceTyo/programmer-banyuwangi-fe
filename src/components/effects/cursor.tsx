@@ -14,34 +14,36 @@ export default function Cursor() {
   const followerRef = useRef<HTMLDivElement | null>(null);
   const circlesRef = useRef<CircleElement[]>([]);
   const coords = useRef({ x: 0, y: 0 });
+  const { contextSafe } = useGSAP();
   const circleCount = 20;
 
   const idleTimer = useRef<NodeJS.Timeout | null>(null);
   const idleDelay = 300;
 
-  const hideCursor = () => {
+  const hideCursor = contextSafe(() => {
     gsap.to([cursorRef.current, followerRef.current, ...circlesRef.current], {
       opacity: 0,
       duration: 0.4,
       ease: "power2.out",
     });
-  };
+  });
 
-  const showCursor = () => {
+  const showCursor = contextSafe(() => {
     gsap.to([cursorRef.current, followerRef.current, ...circlesRef.current], {
       opacity: 1,
       duration: 0.25,
       ease: "power2.out",
     });
-  };
+  });
 
-  const resetIdleTimer = () => {
+  const resetIdleTimer = contextSafe(() => {
     showCursor();
     if (idleTimer.current) clearTimeout(idleTimer.current);
-    idleTimer.current = setTimeout(hideCursor, idleDelay);
-  };
 
-  const moveCursor = (e: MouseEvent): void => {
+    idleTimer.current = setTimeout(hideCursor, idleDelay);
+  });
+
+  const moveCursor = contextSafe((e: MouseEvent): void => {
     coords.current.x = e.clientX;
     coords.current.y = e.clientY;
 
@@ -58,7 +60,7 @@ export default function Cursor() {
       y: e.clientY,
       duration: 0.2,
     });
-  };
+  });
 
   useGSAP(() => {
     gsap.set(cursorRef.current, { xPercent: 100, yPercent: 100 });

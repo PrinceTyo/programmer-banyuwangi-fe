@@ -28,7 +28,7 @@ export default function NavigationCategoryDocumentation({
           <span className="text-sm lg:text-base tracking-wide uppercase">
             All
           </span>
-          <span className=" text-[10px]">[{documentationsCount}]</span>
+          <span className="text-[10px]">[{documentationsCount}]</span>
         </Link>
         {documentationCategories.map((category) => (
           <Link

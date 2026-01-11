@@ -8,10 +8,12 @@ import { JetBrains_Mono, Geologica } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { getGlobal } from "@/lib/api/global";
+import { getFooter } from "@/lib/api/footer";
 import { getNavbar } from "@/lib/api/navbar";
 import { getStrapiImageUrl } from "@/lib/utils";
 
 import type { Metadata } from "next";
+import Footer from "@/components/layout/footer";
 
 const JetBrains = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
@@ -110,11 +112,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { data: navbarData } = await getNavbar();
+  const { data: footerData } = await getFooter();
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased`}
+        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased bg-background`}
         suppressHydrationWarning
       >
         <NuqsAdapter>
@@ -122,6 +125,7 @@ export default async function RootLayout({
           <SmoothScrollWrapper>
             <Navbar data={navbarData} />
             {children}
+            <Footer data={footerData} />
           </SmoothScrollWrapper>
         </NuqsAdapter>
       </body>
