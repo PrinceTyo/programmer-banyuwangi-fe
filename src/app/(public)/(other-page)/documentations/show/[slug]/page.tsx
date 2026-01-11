@@ -1,46 +1,21 @@
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
+import { getDocumentation } from "@/lib/api/documentations";
+import { dateStringToHumanReadable } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getDocumentBySlug, documents } from "@/lib/data/documentation";
-import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
+import { StrapiImage } from "@/components/global/strapi-image";
 
-export default async function DocumentationDetailPage({
+export default async function ShowDocumentationPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getDocumentBySlug(slug);
+  const { data: documentation } = await getDocumentation(slug);
 
-  if (!project) {
+  if (!documentation) {
     notFound();
   }
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year} ${month}.${day}`;
-  };
-
-  const categoryLabels = project.categories.map((category) => {
-    switch (category) {
-      case "ui-web":
-        return "UI/Web";
-      case "learning":
-        return "Learning";
-      case "collaboration":
-        return "Collaboration";
-      case "community-project":
-        return "Community Project";
-      default:
-        return category;
-    }
-  });
-
-  const currentIndex = documents.findIndex((p) => p.slug === slug);
-  const nextDocument = documents[currentIndex + 1];
-  const prevDocument = documents[currentIndex - 1];
 
   return (
     <div className="pt-20 mx-auto max-w-6xl pb-28 px-12">
@@ -57,45 +32,53 @@ export default async function DocumentationDetailPage({
         <div className="flex items-center justify-start gap-4">
           <time
             className="text-white text-sm font-medium whitespace-nowrap font-jetbrains"
-            dateTime={project.date}
+            dateTime={documentation.date}
           >
-            {formatDate(project.date)}
+            {dateStringToHumanReadable(documentation.date)}
           </time>
           <p className="text-[#BABABA] text-xs font-normal font-jetbrains text-right wrap-break-word">
-            [{categoryLabels.join(", ")}]
+            [
+            {documentation.documentation_categories
+              .map((category) => category.title)
+              .join(", ")}
+            ]
           </p>
         </div>
         <h3 className="text-white font-jetbrains font-bold text-3xl mb-12">
-          {project.title}
+          {documentation.title}
         </h3>
       </div>
 
       <div className="mb-6">
         <p className="text-white text-base text-justify font-jetbrains leading-relaxed">
-          {project.description}
+          {documentation.description}
         </p>
       </div>
 
-      <div className="mb-12 rounded-lg overflow-hidden">
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          className="w-full h-auto"
-        />
-      </div>
+      {documentation.photos?.length > 0 && (
+        <div className="mb-12 rounded-lg overflow-hidden">
+          <StrapiImage
+            src={documentation.photos[0]}
+            alt={documentation.title}
+            className="w-full h-auto"
+            size="large"
+          />
+        </div>
+      )}
 
-      {project.images && project.images.length > 0 && (
+      {documentation.photos?.length > 0 && (
         <div className="mb-16">
-          <h3 className="text-white font-bold text-xl mb-6 font-jetbrains">
+          <h3 className="text-white font-jetbrains font-bold text-xl mb-6">
             Gallery
           </h3>
           <div className="grid grid-cols-2 gap-8">
-            {project.images.map((image, index) => (
+            {documentation.photos?.map((image, index) => (
               <div key={index} className="rounded-lg overflow-hidden">
-                <img
+                <StrapiImage
                   src={image}
-                  alt={`${project.title} - Image ${index + 1}`}
+                  alt={`${documentation.title} - Image ${index + 1}`}
                   className="w-full h-auto"
+                  size="large"
                 />
               </div>
             ))}
@@ -103,7 +86,7 @@ export default async function DocumentationDetailPage({
         </div>
       )}
 
-      <div className="flex justify-between items-center pt-16 border-t border-[#333]">
+      {/* <div className="flex justify-between items-center pt-16 border-t border-[#333]">
         {prevDocument ? (
           <Link
             href={`/documentation/detail/${prevDocument.slug}`}
@@ -135,7 +118,7 @@ export default async function DocumentationDetailPage({
         ) : (
           <div />
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

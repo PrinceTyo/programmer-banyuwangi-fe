@@ -3,6 +3,7 @@ import type { Section } from "@/types/strapi/components/shared/section";
 
 export interface HeroSection {
   title: string;
+  backgroundText: string;
   firstSection?: Section;
   secondSection?: Section;
   documentations: Documentation[];

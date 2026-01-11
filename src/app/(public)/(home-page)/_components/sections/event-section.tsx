@@ -1,13 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { events } from "@/lib/data-dummy/events";
 import { useGSAP } from "@gsap/react";
+import { useRef, useState } from "react";
+import { events } from "@/lib/data-dummy/events";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-gsap.registerPlugin(ScrollTrigger);
+import gsap from "gsap";
 
 export default function EventSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -19,13 +16,6 @@ export default function EventSection() {
     if (!sectionRef.current || !imagesWrapperRef.current) return;
 
     const wrapper = imagesWrapperRef.current;
-
-    // gsap.set(sectionRef.current, {
-    //   backgroundPosition: "40px 17px, 0 0",
-    //   transformPerspective: 1600,
-    //   rotateY: 45,
-    //   z: -10,
-    // });
 
     imageRefs.current.forEach((image) => {
       if (image) {

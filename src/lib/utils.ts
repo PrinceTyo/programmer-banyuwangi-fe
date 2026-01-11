@@ -18,3 +18,19 @@ export function getStrapiImageUrl(
 
   return `${process.env.NEXT_PUBLIC_BASE_URL}${media.url}`;
 }
+
+export function toTitleCase(str?: string) {
+  if (!str) return "";
+
+  return str.replace(/\b\w/g, (match) => match.toUpperCase());
+}
+
+export function dateStringToHumanReadable(dateString: string) {
+  const date = new Date(dateString);
+
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}

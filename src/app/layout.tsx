@@ -1,9 +1,11 @@
 import "@/styles/globals.css";
 
 import localFont from "next/font/local";
+import Cursor from "@/components/effects/cursor";
 import Navbar from "@/components/layout/navbar";
 import SmoothScrollWrapper from "@/components/wrappers/smooth-scroll-wrapper";
 import { JetBrains_Mono, Geologica } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { getGlobal } from "@/lib/api/global";
 import { getNavbar } from "@/lib/api/navbar";
@@ -58,12 +60,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: siteName,
     description,
-    icons: globalData.favicon
-      ? {
-          icon: getStrapiImageUrl(globalData.favicon, "thumbnail"),
-          apple: getStrapiImageUrl(globalData.favicon, "thumbnail"),
-        }
-      : null,
+    icons: globalData.favicon && {
+      icon: getStrapiImageUrl(globalData.favicon, "thumbnail"),
+      apple: getStrapiImageUrl(globalData.favicon, "thumbnail"),
+    },
 
     openGraph: {
       type: "website",
@@ -117,10 +117,13 @@ export default async function RootLayout({
         className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased`}
         suppressHydrationWarning
       >
-        <SmoothScrollWrapper>
-          <Navbar data={navbarData} />
-          {children}
-        </SmoothScrollWrapper>
+        <NuqsAdapter>
+          <Cursor />
+          <SmoothScrollWrapper>
+            <Navbar data={navbarData} />
+            {children}
+          </SmoothScrollWrapper>
+        </NuqsAdapter>
       </body>
     </html>
   );

@@ -1,14 +1,15 @@
-import CardSlider from "./_components/sections/card-slider";
-import EventSection from "./_components/sections/event-section";
+import { getHomePage } from "@/lib/api/home-page";
 import HeroSection from "./_components/sections/hero-section";
+import EventSection from "./_components/sections/event-section";
 
-export default function Home() {
+export default async function Home() {
+  const { data: homePageData } = await getHomePage();
+
   return (
     <>
-      <HeroSection />
+      <HeroSection heroData={homePageData.heroSection} />
       <div className="h-[220vh]" />
-      <EventSection />
-      <CardSlider />
+      {homePageData.eventSection && <EventSection />}
     </>
   );
 }
