@@ -19,6 +19,7 @@ export function StrapiImage({
   return (
     <img
       src={getStrapiImageUrl(src, size)}
+      loading="lazy"
       alt={alt || "An image"}
       className={className}
       {...props}

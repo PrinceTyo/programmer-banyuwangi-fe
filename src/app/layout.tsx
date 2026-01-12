@@ -14,6 +14,7 @@ import { getStrapiImageUrl } from "@/lib/utils";
 
 import type { Metadata } from "next";
 import Footer from "@/components/layout/footer";
+import { NavbarProvider } from "@/context/navbar-provider";
 
 const JetBrains = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
@@ -60,7 +61,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = globalData.siteDescription;
 
   return {
-    title: siteName,
+    title: {
+      template: `%s - ${siteName}`,
+      default: siteName,
+    },
     description,
     icons: globalData.favicon && {
       icon: getStrapiImageUrl(globalData.favicon, "thumbnail"),
@@ -120,14 +124,16 @@ export default async function RootLayout({
         className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased bg-background`}
         suppressHydrationWarning
       >
-        <NuqsAdapter>
-          <Cursor />
-          <SmoothScrollWrapper>
-            <Navbar data={navbarData} />
-            {children}
-            <Footer data={footerData} />
-          </SmoothScrollWrapper>
-        </NuqsAdapter>
+        <NavbarProvider>
+          <NuqsAdapter>
+            <Cursor />
+            <SmoothScrollWrapper>
+              <Navbar data={navbarData} />
+              {children}
+              <Footer data={footerData} />
+            </SmoothScrollWrapper>
+          </NuqsAdapter>
+        </NavbarProvider>
       </body>
     </html>
   );

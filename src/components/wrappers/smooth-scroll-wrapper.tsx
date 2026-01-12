@@ -4,6 +4,7 @@ import "lenis/dist/lenis.css";
 import { type ReactNode, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { type LenisRef, ReactLenis } from "lenis/react";
 import gsap from "gsap";
 
@@ -11,7 +12,7 @@ interface SmoothScrollWrapperProps {
   children: ReactNode;
 }
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrambleTextPlugin);
 
 export default function SmoothScrollWrapper({
   children,

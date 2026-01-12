@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Pagination } from "@/components/ui/pagination";
-import CardDocumentation from "./documentation-section/card-documentation";
-import NavigationCategoryDocumentation from "./documentation-section/navigation-category-documentation";
+import CardDocumentation from "./card-documentation";
+import NavigationCategoryDocumentation from "./navigation-category-documentation";
 import SplitTextTitle from "@/components/split-text/split-text-title";
 import gsap from "gsap";
 

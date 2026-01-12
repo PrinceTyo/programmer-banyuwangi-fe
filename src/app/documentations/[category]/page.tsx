@@ -4,10 +4,11 @@ import {
 } from "@/lib/api/documentations";
 import { getDocumentationCategories } from "@/lib/api/documentation-categories";
 import { paginationParamsCache } from "@/config/pagination";
-import DocumentationSection from "../_components/sections/documentation-section";
+import { notFound } from "next/navigation";
+import { GradientBackground } from "@/components/ui/background";
+import DocumentationSection from "../_components/documentation-section";
 
 import type { SearchParams } from "nuqs/server";
-import { notFound } from "next/navigation";
 
 export default async function DocumentationCategoryPage({
   params,
@@ -33,17 +34,8 @@ export default async function DocumentationCategoryPage({
   if (!documentations) return notFound();
 
   return (
-    <>
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-1">
-        <div className="absolute bg-[#004729] top-[15%] left-1/2 -translate-x-1/2 w-150 h-150 rounded-full opacity-50 blur-[120px]" />
-        <div className="absolute bg-[#20033D] bottom-0 left-[10%] w-150 h-150 rounded-full opacity-50 blur-[120px]" />
-        <div
-          className="absolute bg-[#00076B] bottom-0 right-[10%] w-150 h-150 rounded-full opacity-50 blur-[120px]"
-          style={{ background: "#00076B" }}
-        />
-      </div>
-
-      <div className="relative z-10 pt-10 md:pt-28 mx-6 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14">
+    <GradientBackground>
+      <main className="relative z-10 pt-10 mx-6 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14">
         <DocumentationSection
           currentCategory={category}
           documentationCategories={documentationCategories}
@@ -51,7 +43,7 @@ export default async function DocumentationCategoryPage({
           documentations={documentations}
           pagination={meta.pagination!}
         />
-      </div>
-    </>
+      </main>
+    </GradientBackground>
   );
 }

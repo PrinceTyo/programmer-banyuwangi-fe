@@ -66,38 +66,43 @@ export default function SnapshotSection({
   });
 
   return (
-    <div ref={snapshotsRef} className="mx-auto max-w-9xl">
+    <div
+      ref={snapshotsRef}
+      className="mx-auto max-w-9xl relative z-10 pt-40 md:pt-60 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14"
+    >
       <SplitTextTitle
         text="Snapshots"
         className="mb-20 md:mb-26 text-white font-geologica font-bold text-5xl md:text-8xl"
       />
 
-      {snapshots.map((snapshot) => (
-        <section key={snapshot.id}>
-          <div className="text-snapshots flex flex-col gap-4">
-            <time className="text-[#BABABA] text-3xl font-medium whitespace-nowrap font-jetbrains">
-              {snapshot.year}
-            </time>
-            <p className="text-white text-base text-justify font-jetbrains leading-relaxed">
-              {snapshot.description}
-            </p>
-          </div>
-
-          {snapshot.photos && (
-            <div className="image-snapshots space-y-7 mt-8 rounded-lg overflow-hidden">
-              {snapshot.photos.map((photo) => (
-                <StrapiImage
-                  key={photo.id}
-                  src={photo}
-                  alt={`${snapshot.year} - Snapshots`}
-                  size="large"
-                  className="w-full h-auto"
-                />
-              ))}
+      <section className="space-y-20">
+        {snapshots.map((snapshot) => (
+          <div key={snapshot.id}>
+            <div className="text-snapshots flex flex-col gap-4">
+              <time className="text-[#BABABA] text-3xl font-medium whitespace-nowrap font-jetbrains">
+                {snapshot.year}
+              </time>
+              <p className="text-white text-base text-justify font-jetbrains leading-relaxed">
+                {snapshot.description}
+              </p>
             </div>
-          )}
-        </section>
-      ))}
+
+            {snapshot.photos && (
+              <div className="image-snapshots space-y-7 mt-8 rounded-lg overflow-hidden">
+                {snapshot.photos.map((photo) => (
+                  <StrapiImage
+                    key={photo.id}
+                    src={photo}
+                    alt={`${snapshot.year} - Snapshots`}
+                    size="large"
+                    className="w-full h-auto"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
