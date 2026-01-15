@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <NavbarSetter variant="float">
       <HeroSection heroData={homePageData.heroSection} />
-      <div className="h-[220vh]" />
+      <div className="h-[300vh]" />
       <EventSection events={homePageData.eventSection} />
     </NavbarSetter>
   );

@@ -8,7 +8,11 @@ import gsap from "gsap";
 
 import type { Event as EventModel } from "@/types/strapi/models/event";
 
-export default function EventSection({ events }: { events: EventModel[] }) {
+export default function EventSection({
+  events = [],
+}: {
+  events?: EventModel[];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const imagesWrapperRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
