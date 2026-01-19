@@ -41,7 +41,7 @@ export default function Footer({ data }: { data: Footer }) {
           src={data.logo}
           alt="Footer Logo"
           className="w-full"
-          size="thumbnail"
+          size="large"
         />
       </div>
     </footer>
