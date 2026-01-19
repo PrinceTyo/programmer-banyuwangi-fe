@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { RunningText } from "@/components/ui/running-text";
 import AdditionalNavigation from "./additional-navigation";
 import MainNavigation from "./main-navigation";
 
@@ -12,7 +13,7 @@ export default function Footer({ data }: { data: Footer }) {
 
   return (
     <footer
-      className={`relative pt-40 ${isHome ? "bg-gray-900" : "bg-transparent"}`}
+      className={`relative py-40 ${isHome ? "bg-gray-900" : "bg-transparent"}`}
       style={
         isHome
           ? {
@@ -22,13 +23,25 @@ export default function Footer({ data }: { data: Footer }) {
           : undefined
       }
     >
-      <div className="mx-4 md:mx-10 flex flex-col gap-10">
-        <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-8">
+      {data.runningText && (
+        <RunningText
+          text={data.runningText.text}
+          outlinedText={data.runningText.outlinedText}
+          className="mb-16"
+        />
+      )}
+      <div className="mx-4 md:mx-10 flex flex-col gap-10 relative">
+        {data.backgroundText && (
+          <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-climate-crisis text-[180px] font-bold bg-clip-text text-transparent bg-radial from-white/5 via-white/25 to-white/80 backdrop-blur-lg opacity-60 tracking-wider">
+            {data.backgroundText}
+          </p>
+        )}
+        <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-8 relative z-10">
           <MainNavigation navigation={data.navigationGrid} />
           <AdditionalNavigation navigation={data.additionalNavigation} />
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end relative z-10">
           <h1 className="text-white font-jetbrains font-medium text-sm md:text-lg text-right">
             ©{new Date().getFullYear()} {data.copyrightText}
           </h1>

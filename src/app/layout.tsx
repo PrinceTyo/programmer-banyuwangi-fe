@@ -3,8 +3,10 @@ import "@/styles/globals.css";
 import localFont from "next/font/local";
 import Cursor from "@/components/effects/cursor";
 import Navbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/footer";
 import SmoothScrollWrapper from "@/components/wrappers/smooth-scroll-wrapper";
-import { JetBrains_Mono, Geologica } from "next/font/google";
+import { JetBrains_Mono, Geologica, Climate_Crisis } from "next/font/google";
+import { NavbarProvider } from "@/context/navbar-provider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { getGlobal } from "@/lib/api/global";
@@ -13,8 +15,6 @@ import { getNavbar } from "@/lib/api/navbar";
 import { getStrapiImageUrl } from "@/lib/utils";
 
 import type { Metadata } from "next";
-import Footer from "@/components/layout/footer";
-import { NavbarProvider } from "@/context/navbar-provider";
 
 const JetBrains = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
@@ -51,6 +51,13 @@ const googleSansCode = localFont({
     },
   ],
   variable: "--font-google-sans-code",
+  display: "swap",
+});
+
+const climateCrisisFont = Climate_Crisis({
+  subsets: ["latin"],
+  variable: "--font-climate-crisis",
+  fallback: ["monospace"],
   display: "swap",
 });
 
@@ -121,7 +128,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased bg-background`}
+        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} ${climateCrisisFont.variable} antialiased bg-background`}
         suppressHydrationWarning
       >
         <NavbarProvider>
