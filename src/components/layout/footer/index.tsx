@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { StrapiImage } from "@/components/global/strapi-image";
 import AdditionalNavigation from "./additional-navigation";
 import MainNavigation from "./main-navigation";
 
@@ -34,15 +33,6 @@ export default function Footer({ data }: { data: Footer }) {
             ©{new Date().getFullYear()} {data.copyrightText}
           </h1>
         </div>
-      </div>
-
-      <div className="mx-4 mt-6 md:mt-10">
-        <StrapiImage
-          src={data.logo}
-          alt="Footer Logo"
-          className="w-full"
-          size="large"
-        />
       </div>
     </footer>
   );
