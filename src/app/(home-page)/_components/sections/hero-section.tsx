@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import { useNavbar } from "@/context/navbar-provider";
 import gsap from "gsap";
 
 import type { HomePage } from "@/types/strapi/single-type/home-page";
@@ -11,6 +12,7 @@ export default function HeroSection({
 }: {
   heroData: HomePage["heroSection"];
 }) {
+  const { setTheme } = useNavbar();
   const sectionHeroRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -65,6 +67,8 @@ export default function HeroSection({
           pin: true,
           scrub: 4,
           pinSpacing: false,
+          onLeave: () => setTheme("dark"),
+          onEnterBack: () => setTheme("light"),
         },
       });
 

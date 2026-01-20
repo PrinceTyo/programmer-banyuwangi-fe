@@ -15,14 +15,11 @@ import type { Blog } from "@/types/strapi/models/blog";
 
 export default function BlogsSection({ blogs }: { blogs: Blog[] }) {
   return (
-    <div className="relative min-h-screen overflow-x-hidden py-20 px-2 md:px-8 lg:px-14 overflow-y-hidden">
-      <div className="absolute w-screen h-screen flex items-start justify-end">
-        <div className="w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl"></div>
-      </div>
-      <div className="mb-20 md:mb-32">
+    <div className="relative min-h-screen overflow-x-hidden pb-20 px-2 md:px-8 lg:px-14 overflow-y-hidden">
+      <div className="">
         <SplitTextTitle
           text="News"
-          className="text-white font-geologica font-bold text-5xl lg:text-7xl leading-tight max-w-sm"
+          className="mb-20 md:mb-32 text-white font-geologica font-bold text-5xl lg:text-7xl leading-tight max-w-sm"
         />
       </div>
 

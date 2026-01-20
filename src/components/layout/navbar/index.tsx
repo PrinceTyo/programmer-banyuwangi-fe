@@ -1,73 +1,22 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { usePathname } from "next/navigation";
 import { useNavbar } from "@/context/navbar-provider";
 import { MobileNavbar } from "./mobile-navbar";
 import { DesktopNavbar } from "./desktop-navbar";
 import { StrapiImage } from "@/components/global/strapi-image";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 import type { Navbar } from "@/types/strapi/single-type/navbar";
-import { cn } from "@/lib/utils";
 
 export default function Navbar({ data }: Readonly<{ data: Navbar }>) {
-  const { variant } = useNavbar();
-  const [isDark, setIsDark] = useState(false);
-  const pathname = usePathname();
-  const rafId = useRef<number | null>(null);
-  const isHome = pathname === "/";
-
-  const checkSection = useCallback(() => {
-    if (!isHome) return;
-
-    const elements = document.querySelectorAll("[id]");
-    let found = null;
-
-    for (const el of elements) {
-      const box = el.getBoundingClientRect();
-      if (box.top <= 50 && box.bottom >= 100) {
-        found = el.getAttribute("id");
-        break;
-      }
-    }
-
-    setIsDark(found === "black");
-  }, [isHome]);
-
-  const handleScroll = useCallback(() => {
-    if (rafId.current) return;
-
-    rafId.current = requestAnimationFrame(() => {
-      checkSection();
-      rafId.current = null;
-    });
-  }, [checkSection]);
-
-  useEffect(() => {
-    if (!isHome) {
-      setIsDark(false);
-      return;
-    }
-
-    checkSection();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafId.current) {
-        cancelAnimationFrame(rafId.current);
-      }
-    };
-  }, [isHome, handleScroll, checkSection]);
-
-  const navStyle = isDark ? "text-black" : "text-white";
+  const { variant, theme } = useNavbar();
 
   return (
     <nav
       className={cn(
         variant === "default" ? "sticky" : "fixed w-full",
-        navStyle,
+        theme === "light" ? "text-black" : "text-white",
         "top-0 left-0 z-100 bg-transparent transition-colors duration-300"
       )}
     >
@@ -79,9 +28,7 @@ export default function Navbar({ data }: Readonly<{ data: Navbar }>) {
             className="w-full h-full object-contain"
           />
         </Link>
-
-        <DesktopNavbar data={data} isDark={isDark} />
-
+        <DesktopNavbar data={data} />
         <div className="md:hidden cursor-pointer">
           <MobileNavbar data={data} />
         </div>

@@ -13,9 +13,9 @@ export default async function BlogsPage() {
 
   return (
     <GradientBackground>
-      <div className="relative z-10 pt-20 md:pt-40 ">
+      <main className="relative z-10">
         <BlogsSection blogs={blogs} />
-      </div>
+      </main>
     </GradientBackground>
   );
 }

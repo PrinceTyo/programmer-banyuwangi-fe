@@ -14,13 +14,11 @@ gsap.registerPlugin(ScrambleTextPlugin);
 
 interface NavbarProps {
   data: Navbar;
-  isDark: boolean;
 }
 
-export function DesktopNavbar({ data, isDark }: Readonly<NavbarProps>) {
+export function DesktopNavbar({ data }: Readonly<NavbarProps>) {
   const [isCTAHovered, setIsCTAHovered] = useState(false);
   const scrambleRef = useRef<HTMLDivElement>(null);
-  const textColor = isDark ? "text-black" : "text-white";
 
   useGSAP(
     () => {
@@ -55,13 +53,13 @@ export function DesktopNavbar({ data, isDark }: Readonly<NavbarProps>) {
   );
 
   return (
-    <div className="flex items-center gap-20">
+    <div className="flex items-center gap-20 transition-colors duration-150">
       <div ref={scrambleRef} className="hidden md:flex space-x-8 items-center">
         {data.navigations.map((item) => (
           <Link
             key={item.url}
             href={item.url}
-            className={`text-base font-jetbrains cursor-pointer min-w-15 text-center ${textColor} transition-colors`}
+            className={`text-base font-jetbrains cursor-pointer min-w-15 text-center`}
           >
             {item.title}
           </Link>
@@ -70,14 +68,10 @@ export function DesktopNavbar({ data, isDark }: Readonly<NavbarProps>) {
 
       {data.additionalNavigation ? (
         <div
-          className="hidden md:flex items-center"
-          onMouseEnter={() => setIsCTAHovered(true)}
-          onMouseLeave={() => setIsCTAHovered(false)}
+          className="hidden md:flex items-center group/contact"
         >
           <Contactlink
             data={data.additionalNavigation}
-            isDark={isDark}
-            isHovered={isCTAHovered}
           />
         </div>
       ) : null}
