@@ -196,7 +196,7 @@ export default function HeroSection({
         <div className="grid md:items-start lg:items-center text-start md:-mr-36 lg:mr-0">
           <div className="subtitle-first">
             <h1 className="text-2xl md:text-4xl font-semibold text-white bg-black inline-bg px-3 leading-relaxed md:leading-14">
-              {heroData.firstSection?.description}
+              {heroData.firstSection?.title}
             </h1>
           </div>
         </div>
@@ -204,7 +204,7 @@ export default function HeroSection({
         <div className="grid md:items-start lg:items-center text-start md:text-end md:-ml-36 lg:ml-0">
           <div className="subtitle-second">
             <h1 className="text-2xl md:text-4xl font-semibold text-white bg-black inline-bg px-3 leading-relaxed md:leading-14">
-              {heroData.secondSection?.description}
+              {heroData.secondSection?.title}
             </h1>
           </div>
         </div>
@@ -212,12 +212,12 @@ export default function HeroSection({
         <div className="text-start text-gray-500 relative">
           <div className="paragraph-first absolute lg:max-w-1/2">
             <p className="font-medium text-xs">
-              {heroData.firstSection?.title}
+              {heroData.firstSection?.description}
             </p>
           </div>
           <div className="paragraph-second absolute lg:max-w-1/2">
             <p className="font-medium text-xs">
-              {heroData.secondSection?.title}
+              {heroData.secondSection?.description}
             </p>
           </div>
         </div>

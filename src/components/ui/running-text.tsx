@@ -24,9 +24,10 @@ export function RunningText({
               {textItems.map((item, index) => (
                 <MarqueeItem key={`${groupIndex}-${index}`} asChild>
                   <p
-                    className={`text-7xl md:text-8xl font-medium ${
-                      item.outlined ? "text-transparent text-outline-white" : ""
-                    }`}
+                    className={cn(
+                      "text-7xl md:text-8xl font-medium",
+                      item.outlined && "text-transparent text-outline-[1px]!"
+                    )}
                   >
                     {item.text}&nbsp;
                   </p>

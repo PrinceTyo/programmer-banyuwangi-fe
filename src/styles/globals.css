@@ -190,6 +190,11 @@
   }
 }
 
+@utility text-outline-* {
+  -webkit-text-stroke: calc(--value(integer) * 0.25rem) white;
+  -webkit-text-stroke: --value([*]) white;
+}
+
 @layer utilities {
   .text-outline-black {
     -webkit-text-stroke: 1px black;
