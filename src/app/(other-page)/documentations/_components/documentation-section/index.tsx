@@ -76,7 +76,7 @@ export default function DocumentationSection({
   return (
     <div ref={documentationRef}>
       <SplitTextTitle
-        text="Works"
+        text="Documentations"
         className="text-white font-geologica font-bold text-5xl lg:text-7xl"
       />
 

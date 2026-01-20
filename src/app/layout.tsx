@@ -1,20 +1,14 @@
 import "@/styles/globals.css";
 
+import { getGlobal } from "@/lib/api/global";
+import { getStrapiImageUrl } from "@/lib/utils";
+import { JetBrains_Mono, Geologica, Climate_Crisis } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import localFont from "next/font/local";
 import Cursor from "@/components/effects/cursor";
-import Navbar from "@/components/layout/navbar";
 import SmoothScrollWrapper from "@/components/wrappers/smooth-scroll-wrapper";
-import { JetBrains_Mono, Geologica } from "next/font/google";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-
-import { getGlobal } from "@/lib/api/global";
-import { getFooter } from "@/lib/api/footer";
-import { getNavbar } from "@/lib/api/navbar";
-import { getStrapiImageUrl } from "@/lib/utils";
 
 import type { Metadata } from "next";
-import Footer from "@/components/layout/footer";
-import { NavbarProvider } from "@/context/navbar-provider";
 
 const JetBrains = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
@@ -51,6 +45,13 @@ const googleSansCode = localFont({
     },
   ],
   variable: "--font-google-sans-code",
+  display: "swap",
+});
+
+const climateCrisisFont = Climate_Crisis({
+  subsets: ["latin"],
+  variable: "--font-climate-crisis",
+  fallback: ["monospace"],
   display: "swap",
 });
 
@@ -110,30 +111,21 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: navbarData } = await getNavbar();
-  const { data: footerData } = await getFooter();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} antialiased bg-background`}
+        className={`${JetBrains.variable} ${Geologicas.variable} ${googleSansCode.variable} ${climateCrisisFont.variable} antialiased bg-background`}
         suppressHydrationWarning
       >
-        <NavbarProvider>
-          <NuqsAdapter>
-            <Cursor />
-            <SmoothScrollWrapper>
-              <Navbar data={navbarData} />
-              {children}
-              <Footer data={footerData} />
-            </SmoothScrollWrapper>
-          </NuqsAdapter>
-        </NavbarProvider>
+        <NuqsAdapter>
+          <Cursor />
+          <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
+        </NuqsAdapter>
       </body>
     </html>
   );
