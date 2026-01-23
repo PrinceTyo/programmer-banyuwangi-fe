@@ -35,15 +35,13 @@ export default async function DocumentationCategoryPage({
 
   return (
     <GradientBackground>
-      <main className="relative z-10 pt-10 mx-6 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14">
-        <DocumentationSection
-          currentCategory={category}
-          documentationCategories={documentationCategories}
-          documentationsCount={documentationsCount.total}
-          documentations={documentations}
-          pagination={meta.pagination!}
-        />
-      </main>
+      <DocumentationSection
+        currentCategory={category}
+        documentationCategories={documentationCategories}
+        documentationsCount={documentationsCount.total}
+        documentations={documentations}
+        pagination={meta.pagination!}
+      />
     </GradientBackground>
   );
 }

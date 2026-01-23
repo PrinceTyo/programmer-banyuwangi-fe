@@ -74,7 +74,7 @@ export default function DocumentationSection({
   }, []);
 
   return (
-    <div ref={documentationRef}>
+    <div ref={documentationRef} className="relative z-10 pt-10 mx-6 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14">
       <SplitTextTitle
         text="Documentations"
         className="text-white font-geologica font-bold text-5xl lg:text-7xl"

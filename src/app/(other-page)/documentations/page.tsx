@@ -27,14 +27,12 @@ export default async function DocumentationPage({
 
   return (
     <GradientBackground>
-      <main className="relative z-10 pt-10 mx-6 md:mx-10 lg:mx-21 px-2 md:px-8 lg:px-14">
-        <DocumentationSection
-          documentationCategories={documentationCategories}
-          documentations={documentations}
-          documentationsCount={meta.pagination?.total || 0}
-          pagination={meta.pagination!}
-        />
-      </main>
+      <DocumentationSection
+        documentationCategories={documentationCategories}
+        documentations={documentations}
+        documentationsCount={meta.pagination?.total || 0}
+        pagination={meta.pagination!}
+      />
     </GradientBackground>
   );
 }

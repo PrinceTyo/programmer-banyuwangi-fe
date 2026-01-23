@@ -1,4 +1,5 @@
 import { getHomePage } from "@/lib/api/home-page";
+import UpcomingEventSection from "./_components/sections/upcoming-event-section";
 import HeroSection from "./_components/sections/hero-section";
 import EventSection from "./_components/sections/event-section";
 
@@ -13,6 +14,9 @@ export default async function Home() {
 
   return (
     <>
+      {homePageData.upcomingEventSection && (
+        <UpcomingEventSection data={homePageData.upcomingEventSection} />
+      )}
       <HeroSection heroData={homePageData.heroSection} />
       <div className="h-[200vh]" />
       <EventSection events={homePageData.eventSection} />

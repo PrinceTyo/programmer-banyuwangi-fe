@@ -32,7 +32,7 @@ export default function Footer({ data }: { data: Footer }) {
       )}
       <div className="mx-4 md:mx-10 flex flex-col gap-10 relative">
         {data.backgroundText && (
-          <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-climate-crisis text-[180px] font-bold bg-clip-text text-transparent bg-radial from-white/5 via-white/25 to-white/80 backdrop-blur-lg opacity-60 tracking-wider">
+          <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-climate-crisis text-[100px] sm:text-[120px] md:text-[140px] lg:text-[180px] font-bold bg-clip-text text-transparent bg-radial from-white/5 via-white/25 to-white/80 backdrop-blur-lg opacity-60 tracking-wider">
             {data.backgroundText}
           </p>
         )}
